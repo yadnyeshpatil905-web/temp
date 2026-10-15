@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" class="anim">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="TraceLearn — Multimodal AI study companion ingesting videos, textbooks and slides with cited tutoring, adaptive quizzes and Bayesian Knowledge Tracing.">
+  <meta name="theme-color" content="#04070d">
+  <title>{% block title %}TraceLearn · Multimodal AI Study Companion{% endblock %}</title>
+  <script>
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.className = "anim";
+      setTimeout(function(){ document.documentElement.classList.remove("anim"); }, 3200);
+    } else {
+      document.documentElement.className = "";
+    }
+  </script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block head_extra %}{% endblock %}
+</head>
+<body>
+{% from "_icons.html" import icon %}
+<div class="shell">
+
+  <!-- ============================ TOP BAR ============================ -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="/" class="brand" aria-label="TraceLearn Home">
+        <span class="brand-wordmark">
+          <svg viewBox="0 0 163 19" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 17 L2.75 17 L1.75 16.5 L1.5 15 L2.25 14 L12.25 14 L12.75 13.75 L13 13 L12.75 11.5 L12 11.25 L4.5 11.25 L2.5 10.5 L1.75 8.75 L1.5 6.5 L1.5 4.5 L2.5 3 L4.25 2.5 L7.25 2.25 L15 2.25 L15.75 3 L16 4.5 L15 5.5 L6 5.5 L5 5.75 L4.5 6.5 L4.75 7.5 L5.5 8.25 L13 8.25 L14.75 8.75 L15.5 9.5 L16 11 L15.75 15.5 L14.25 16.5ZM62.25 17 L60.75 17 L60 16.5 L56 12 L53.75 11.25 L53 11.5 L52.25 12 L51.75 16.5 L50.75 16.75 L49.5 16.5 L49 15.25 L49 3.5 L49.5 2.75 L50.5 2.25 L59 2.5 L62 2.5 L62.75 3 L63.5 4 L63.75 5 L63.25 9.5 L62 11 L60 11.5 L59.75 12 L60.25 13 L63 15.75 L63 16.5ZM86.5 17 L85.5 16.75 L85 16.25 L84.5 12.5 L84 12 L83 11.75 L76.5 12 L76 12.75 L75.75 16.5 L75 17 L73.5 16.5 L73 15 L73.25 6.5 L73.25 4.5 L74.5 3.25 L76.5 2.5 L82 2.25 L85.5 2.5 L86.5 3 L87.5 4.25 L87.5 5 L87.75 15 L87.25 16.5ZM33.5 17 L31.75 16.75 L31.25 16 L31 6 L30 5.5 L25.5 5.25 L25 3.75 L25.5 2.5 L38.5 2.5 L39.5 2.5 L40 3 L40.25 4.5 L39.5 5.25 L35 5.5 L34.25 6 L34 15.5ZM103.75 16.75 L102.5 16.75 L101.75 16 L101.5 6 L100.75 5.5 L96.25 5.25 L95.75 4 L96 3 L96.5 2.5 L109.5 2.5 L110.5 3.25 L110.75 4.5 L110 5.25 L105.75 5.25 L104.75 6 L104.5 15.5 L104.25 16.5ZM129.75 17 L122.5 17 L121 16.25 L120.25 15.5 L119.75 14.5 L119.75 13 L119.75 3.75 L120.25 2.75 L122 2.5 L122.5 3.5 L123 13.5 L124 14 L130 14.25 L131 13.75 L131.5 13 L131.5 3.25 L132 2.5 L133 2.5 L134 3 L134.25 3.75 L134 14.5 L133.5 15.5 L132.5 16.25 L131.5 16.75ZM160.5 17 L159.5 16.75 L158.75 16 L158.75 6.5 L158.5 5.75 L157.5 5.5 L155 5.5 L154 6 L153.75 16 L153.5 16.75 L152.25 17 L151.5 16.75 L151 15.75 L150.75 6 L150 5.5 L147.25 5.25 L146.5 5.75 L146 6.5 L146 16 L145.25 16.75 L143.5 16.75 L143.25 15.25 L143.25 3.75 L143.5 3 L144 2.5 L146.75 2.5 L159.5 2.5 L161.5 3 L161.75 3.5 L161.75 15.5 L161.5 16.5ZM53.75 8.5 L60 8.5 L60.75 7.75 L60.75 6.25 L60.25 5.5 L59.5 5.25 L53 5.5 L52.25 6 L52.25 7.5 L52.5 8.5ZM83.75 9.25 L84.5 8.75 L84.75 7.75 L84.5 6 L84 5.5 L77 5.5 L76 6 L76 8.5 L76.75 9.25Z"/></svg>
+        </span>
+        <span class="brand-sub">TRACELEARN AI</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        {% for key, label, href, ic, short in nav_items %}
+        <a href="{{ href }}" class="nav-link lbl {{ 'active' if active == key else '' }}">
+          <span class="t">{{ label }}</span>
+        </a>
+        {% endfor %}
+      </nav>
+
+      <div class="topbar-actions">
+        {% if demo_mode %}
+        <span class="badge badge-mid desktop-only" title="Demo mode active — seeded MIT 6.006 dataset">
+          <span class="dot"></span> Demo mode
+        </span>
+        {% else %}
+        <span class="badge badge-high desktop-only" title="Live model active">
+          <span class="dot"></span> Live
+        </span>
+        {% endif %}
+        
+        <a class="pill enter lbl" href="/chat">
+          <svg class="ico" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="0" y="0" width="4" height="5"/><rect x="3" y="4" width="4" height="4"/><rect x="0" y="7" width="4" height="4"/></svg>
+          <span class="t">ENTER</span>
+        </a>
+
+        <a class="pill menu lbl" href="/assessment">
+          <svg class="ico" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="0" y="0" width="4" height="4" rx=".8"/><rect x="6" y="0" width="4" height="4" rx=".8"/><rect x="0" y="6" width="4" height="4" rx=".8"/><rect x="6" y="6" width="4" height="4" rx=".8"/></svg>
+          <span class="t">PRACTICE</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================= MAIN ============================= -->
+  <main class="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ========================== BOTTOM NAV ========================== -->
+  <nav class="bottom-nav" aria-label="Primary mobile">
+    <ul>
+      {% for key, label, href, ic, short in nav_items %}
+      <li>
+        <a href="{{ href }}" class="bnav-item {{ 'active' if active == key else '' }}">
+          {{ icon(ic, 18) }}<span>{{ short }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </nav>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+{% block scripts %}{% endblock %}
+<script>
+  window.TL = { courseId: "{{ course_id }}", demoMode: {{ 'true' if demo_mode else 'false' }} };
+</script>
+<script>
+(function(){
+  "use strict";
+  var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var CH = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var DUR = 400;
+
+  /* ---------------------------------------------------------------
+     DECODE LABELS EFFECT (Stratum exact)
+  ---------------------------------------------------------------- */
+  var labels = [].slice.call(document.querySelectorAll('.t'));
+  labels.forEach(function(el){ el.dataset.text = el.textContent; });
+
+  function reserve(){
+    var w = [];
+    labels.forEach(function(el){ el.style.width = ''; });
+    labels.forEach(function(el){ w.push(el.getBoundingClientRect().width); });
+    labels.forEach(function(el,i){ el.style.width = (Math.ceil(w[i]*100)/100) + 'px'; });
+  }
+
+  function settle(el){
+    if (el._raf){ cancelAnimationFrame(el._raf); el._raf = 0; }
+    if (el._t){ clearTimeout(el._t); el._t = 0; }
+    el.textContent = el.dataset.text;
+  }
+
+  function decode(el, dur){
+    var text = el.dataset.text, n = text ? text.length : 0;
+    if (!text || RM){ if (el) settle(el); return; }
+    settle(el);
+    var D = dur || DUR;
+    var t0 = performance.now(), lastRoll = 0;
+    var rand = new Array(n);
+    function roll(){ for (var i=0;i<n;i++) rand[i] = CH.charAt((Math.random()*26)|0); }
+    roll();
+    function step(now){
+      var p = Math.min(1, (now - t0) / D), front = p * n, out = '', i;
+      if (now - lastRoll > 45){ roll(); lastRoll = now; }
+      for (i = 0; i < n; i++){
+        var c = text.charAt(i);
+        if (i < front) out += c;
+        else if (i < front + 3.6) out += (c === ' ' ? ' ' : rand[i]);
+        else break;
+      }
+      el.textContent = out;
+      if (p < 1) el._raf = requestAnimationFrame(step); else settle(el);
+    }
+    el._raf = requestAnimationFrame(step);
+    el._t = setTimeout(function(){ settle(el); }, D + 500);
+  }
+  window.decodeLabel = decode;
+
+  [].forEach.call(document.querySelectorAll('a, button, .nav-link, .pill, .btn'), function(el){
+    var t = el.querySelector('.t');
+    if (!t) return;
+    el.addEventListener('pointerenter', function(){ decode(t); });
+  });
+
+  function boot(){
+    reserve();
+    if (RM) return;
+    [].slice.call(document.querySelectorAll('.topbar .t, .enter .t, .menu .t')).forEach(function(el, i){
+      setTimeout(function(){ decode(el); }, 250 + i * 40);
+    });
+    setTimeout(function(){ document.documentElement.classList.remove('anim'); }, 2200);
+    setTimeout(function(){ labels.forEach(settle); }, 2600);
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(boot); else addEventListener('load', boot);
+
+  var rt;
+  addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(reserve, 160); });
+
+  // Toast helper
+  window.tlToast = function (message) {
+    var el = document.getElementById('toast');
+    if (!el) return;
+    el.textContent = message;
+    el.classList.add('show');
+    clearTimeout(window.__tlToastTimer);
+    window.__tlToastTimer = setTimeout(function () { el.classList.remove('show'); }, 2600);
+  };
+})();
+</script>
+</body>
+</html>
